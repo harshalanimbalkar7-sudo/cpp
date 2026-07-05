@@ -40,3 +40,20 @@ public:
         return n * factorial(n-1);
     }
 };
+
+
+class Solution{
+public:
+    void reverse(int arr[], int n){
+        if (left >= right) {
+            return;
+        }
+
+        swap(arr[left], arr[right]);
+        helper(arr, left + 1, right - 1);
+    }
+
+    void reverse(int arr[], int n) {
+        helper(arr, 0, n - 1);
+    }
+};
