@@ -30,3 +30,13 @@ class Solution{
             return N + NnumbersSum(N-1);
 		}
 };
+
+class Solution {
+public:
+    int factorial(int n) {
+        if(n==0||n==1){
+            return 1;
+        }
+        return n * factorial(n-1);
+    }
+};
