@@ -31,21 +31,42 @@
 // }
 
 
+// #include <iostream>
+// using namespace std;
+
+// void evenOdd(int n)
+// {
+//     if (n % 2 == 0)
+//         cout << "Even";
+//     else
+//         cout << "Odd";
+// }
+
+// int main()
+// {
+//     int n;
+//     cin >> n;
+//     evenOdd(n);
+//     return 0;
+// }
+
 #include <iostream>
 using namespace std;
 
-void evenOdd(int n)
+void swapNum(int &a, int &b)
 {
-    if (n % 2 == 0)
-        cout << "Even";
-    else
-        cout << "Odd";
+    int temp = a;
+    a = b;
+    b = temp;
 }
 
 int main()
 {
-    int n;
-    cin >> n;
-    evenOdd(n);
+    int a, b;
+    cin >> a >> b;
+
+    swapNum(a, b);
+
+    cout << a << " " << b;
     return 0;
 }
