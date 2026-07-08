@@ -14,18 +14,38 @@
 //     return 0;
 // }
 
+// #include <iostream>
+// using namespace std;
+
+// int cube(int n)
+// {
+//     return n * n * n;
+// }
+
+// int main()
+// {
+//     int n;
+//     cin >> n;
+//     cout << cube(n);
+//     return 0;
+// }
+
+
 #include <iostream>
 using namespace std;
 
-int cube(int n)
+void evenOdd(int n)
 {
-    return n * n * n;
+    if (n % 2 == 0)
+        cout << "Even";
+    else
+        cout << "Odd";
 }
 
 int main()
 {
     int n;
     cin >> n;
-    cout << cube(n);
+    evenOdd(n);
     return 0;
 }
