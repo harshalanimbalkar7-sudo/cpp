@@ -50,23 +50,46 @@
 //     return 0;
 // }
 
+// #include <iostream>
+// using namespace std;
+
+// void swapNum(int &a, int &b)
+// {
+//     int temp = a;
+//     a = b;
+//     b = temp;
+// }
+
+// int main()
+// {
+//     int a, b;
+//     cin >> a >> b;
+
+//     swapNum(a, b);
+
+//     cout << a << " " << b;
+//     return 0;
+// }
+
 #include <iostream>
 using namespace std;
 
-void swapNum(int &a, int &b)
+int factorial(int n)
 {
-    int temp = a;
-    a = b;
-    b = temp;
+    int fact = 1;
+
+    for (int i = 1; i <= n; i++)
+        fact = fact * i;
+
+    return fact;
 }
 
 int main()
 {
-    int a, b;
-    cin >> a >> b;
+    int n;
+    cin >> n;
 
-    swapNum(a, b);
+    cout << factorial(n);
 
-    cout << a << " " << b;
     return 0;
 }
