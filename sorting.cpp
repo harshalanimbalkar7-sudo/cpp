@@ -142,3 +142,33 @@ public:
         return nums;
     }
 };
+
+class Solution {
+public:
+    // Recursively insert the current element into the sorted part
+    void insert(vector<int>& nums, int j, int key) {
+        if (j < 0 || nums[j] <= key) {
+            nums[j + 1] = key;
+            return;
+        }
+
+        nums[j + 1] = nums[j];
+        insert(nums, j - 1, key);
+    }
+
+    // Recursive Insertion Sort
+    void insertionSortHelper(vector<int>& nums, int n) {
+        if (n <= 1)
+            return;
+
+        insertionSortHelper(nums, n - 1);
+
+        int key = nums[n - 1];
+        insert(nums, n - 2, key);
+    }
+
+    vector<int> insertionSort(vector<int>& nums) {
+        insertionSortHelper(nums, nums.size());
+        return nums;
+    }
+};
