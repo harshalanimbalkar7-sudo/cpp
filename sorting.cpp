@@ -21,7 +21,6 @@ int n = nums.size();
     }
 };
 
-
 class Solution {
 public:
     vector<int> bubbleSort(vector<int>& nums) {
@@ -116,6 +115,30 @@ public:
 
     vector<int> mergeSort(vector<int>& nums) {
         mergeSortHelper(nums, 0, nums.size() - 1);
+        return nums;
+    }
+};
+
+class Solution {
+public:
+    void bubbleSortHelper(vector<int>& nums, int n) {
+        // Base case
+        if (n == 1)
+            return;
+
+        // One pass of Bubble Sort
+        for (int i = 0; i < n - 1; i++) {
+            if (nums[i] > nums[i + 1]) {
+                swap(nums[i], nums[i + 1]);
+            }
+        }
+
+        // Recursively sort the remaining array
+        bubbleSortHelper(nums, n - 1);
+    }
+
+    vector<int> bubbleSort(vector<int>& nums) {
+        bubbleSortHelper(nums, nums.size());
         return nums;
     }
 };
