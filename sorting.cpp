@@ -172,3 +172,40 @@ public:
         return nums;
     }
 };
+
+class Solution {
+public:
+    int partition(vector<int>& nums, int low, int high) {
+        int pivot = nums[low];
+        int i = low;
+        int j = high;
+
+        while (i < j) {
+            while (i <= high - 1 && nums[i] <= pivot)
+                i++;
+
+            while (j >= low + 1 && nums[j] > pivot)
+                j--;
+
+            if (i < j)
+                swap(nums[i], nums[j]);
+        }
+
+        swap(nums[low], nums[j]);
+        return j;
+    }
+
+    void quickSortHelper(vector<int>& nums, int low, int high) {
+        if (low < high) {
+            int pIndex = partition(nums, low, high);
+
+            quickSortHelper(nums, low, pIndex - 1);
+            quickSortHelper(nums, pIndex + 1, high);
+        }
+    }
+
+    vector<int> quickSort(vector<int>& nums) {
+        quickSortHelper(nums, 0, nums.size() - 1);
+        return nums;
+    }
+};
