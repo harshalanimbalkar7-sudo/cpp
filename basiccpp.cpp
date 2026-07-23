@@ -68,3 +68,26 @@ public:
         return total;
     }
 };
+
+
+class Solution {
+public:
+    int sumOfFirst50Numbers(int d) {
+
+        int count = 0;
+        int num = d;
+        int sum = 0;
+
+        // Handle the case when d = 0
+        if (d == 0)
+            num = 10;
+
+        while (count < 50) {
+            sum += num;
+            num += 10;
+            count++;
+        }
+
+        return sum;
+    }
+};
