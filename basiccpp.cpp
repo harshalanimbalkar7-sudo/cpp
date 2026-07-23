@@ -53,3 +53,18 @@ public:
         }
     }
 };
+
+
+class Solution {
+public:
+    int sum(int low, int high) {
+
+        int total = 0;
+
+        for (int i = low; i <= high; i++) {
+            total += i;
+        }
+
+        return total;
+    }
+};
