@@ -136,3 +136,30 @@ public:
         return maxi;
     }
 };
+
+
+
+//26 july
+
+class Solution {
+public:
+    vector<int> leaders(vector<int>& nums) {
+
+        vector<int> ans;
+
+        int maxi = nums[nums.size() - 1];
+        ans.push_back(maxi);
+
+        for (int i = nums.size() - 2; i >= 0; i--) {
+
+            if (nums[i] > maxi) {
+                ans.push_back(nums[i]);
+                maxi = nums[i];
+            }
+        }
+
+        reverse(ans.begin(), ans.end());
+
+        return ans;
+    }
+};
