@@ -111,3 +111,30 @@ public:
         return maxi;
     }
 };
+
+
+class Solution {
+public:
+    int subarraysXor(vector<int> &nums, int k) {
+
+        unordered_map<int, int> mp;
+        int xr = 0;
+        int cnt = 0;
+
+        mp[0] = 1;
+
+        for (int i = 0; i < nums.size(); i++) {
+
+            xr = xr ^ nums[i];
+
+            int x = xr ^ k;
+
+            if (mp.find(x) != mp.end())
+                cnt += mp[x];
+
+            mp[xr]++;
+        }
+
+        return cnt;
+    }
+};
