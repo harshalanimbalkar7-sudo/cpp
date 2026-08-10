@@ -172,3 +172,66 @@ public:
         return {(int)A, (int)B};
     }
 };
+
+
+class Solution {
+public:
+
+    long long merge(vector<int>& nums, int low, int mid, int high) {
+
+        vector<int> temp;
+        int i = low;
+        int j = mid + 1;
+        long long cnt = 0;
+
+        while (i <= mid && j <= high) {
+
+            if (nums[i] <= nums[j]) {
+                temp.push_back(nums[i]);
+                i++;
+            }
+            else {
+                temp.push_back(nums[j]);
+                cnt += mid - i + 1;
+                j++;
+            }
+        }
+
+        while (i <= mid) {
+            temp.push_back(nums[i]);
+            i++;
+        }
+
+        while (j <= high) {
+            temp.push_back(nums[j]);
+            j++;
+        }
+
+        for (int k = low; k <= high; k++)
+            nums[k] = temp[k - low];
+
+        return cnt;
+    }
+
+    long long mergeSort(vector<int>& nums, int low, int high) {
+
+        if (low >= high)
+            return 0;
+
+        int mid = low + (high - low) / 2;
+
+        long long cnt = 0;
+
+        cnt += mergeSort(nums, low, mid);
+        cnt += mergeSort(nums, mid + 1, high);
+
+        cnt += merge(nums, low, mid, high);
+
+        return cnt;
+    }
+
+    long long numberOfInversions(vector<int>& nums) {
+
+        return mergeSort(nums, 0, nums.size() - 1);
+    }
+};
