@@ -138,3 +138,37 @@ public:
         return cnt;
     }
 };
+
+
+class Solution {
+public:
+    vector<int> findMissingRepeatingNumbers(vector<int>& nums) {
+
+        long long n = nums.size();
+
+        long long sum = 0;
+        long long sqSum = 0;
+
+        for (int x : nums) {
+            sum += x;
+            sqSum += 1LL * x * x;
+        }
+
+        long long expectedSum = n * (n + 1) / 2;
+        long long expectedSqSum = n * (n + 1) * (2 * n + 1) / 6;
+
+        // A - B
+        long long diff = sum - expectedSum;
+
+        // A² - B²
+        long long sqDiff = sqSum - expectedSqSum;
+
+        // (A-B)(A+B)
+        long long sumAB = sqDiff / diff;
+
+        long long A = (diff + sumAB) / 2;
+        long long B = sumAB - A;
+
+        return {(int)A, (int)B};
+    }
+};
