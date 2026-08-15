@@ -138,3 +138,43 @@ public:
         return last - first + 1;
     }
 };
+
+class Solution {
+public:
+    int findKRotation(vector<int>& nums) {
+
+        int low = 0;
+        int high = nums.size() - 1;
+        int ans = 0;
+
+        while (low <= high) {
+
+            int mid = low + (high - low) / 2;
+
+            // Array is already sorted
+            if (nums[low] <= nums[high]) {
+                if (nums[low] < nums[ans])
+                    ans = low;
+                break;
+            }
+
+            // Left half is sorted
+            if (nums[low] <= nums[mid]) {
+                if (nums[low] < nums[ans])
+                    ans = low;
+
+                low = mid + 1;
+            }
+
+            // Right half is sorted
+            else {
+                if (nums[mid] < nums[ans])
+                    ans = mid;
+
+                high = mid - 1;
+            }
+        }
+
+        return ans;
+    }
+};
