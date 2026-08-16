@@ -204,3 +204,46 @@ public:
         return ans;
     }
 };
+
+
+class Solution {
+public:
+
+    int power(int x, int n, int m) {
+        long long result = 1;
+
+        for (int i = 1; i <= n; i++) {
+            result *= x;
+
+            if (result > m)
+                return 2;
+        }
+
+        if (result == m)
+            return 1;
+
+        return 0;
+    }
+
+    int NthRoot(int N, int M) {
+        int low = 1;
+        int high = M;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            int value = power(mid, N, M);
+
+            if (value == 1)
+                return mid;
+
+            else if (value == 2)
+                high = mid - 1;
+
+            else
+                low = mid + 1;
+        }
+
+        return -1;
+    }
+};
