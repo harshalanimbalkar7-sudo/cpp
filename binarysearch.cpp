@@ -301,3 +301,68 @@ public:
         return answer;
     }
 };
+
+
+class Solution {
+public:
+
+    bool isPossible(vector<int>& nums, int m, int maxPages)
+    {
+        int students = 1;
+        int pages = 0;
+
+        for(int i = 0; i < nums.size(); i++)
+        {
+            if(pages + nums[i] <= maxPages)
+            {
+                pages += nums[i];
+            }
+            else
+            {
+                students++;
+                pages = nums[i];
+            }
+
+            if(students > m)
+                return false;
+        }
+
+        return true;
+    }
+
+    int findPages(vector<int>& nums, int m)
+    {
+        int n = nums.size();
+
+        // More students than books -> impossible
+        if(m > n)
+            return -1;
+
+        int low = *max_element(nums.begin(), nums.end());
+
+        int high = 0;
+        for(int pages : nums)
+        {
+            high += pages;
+        }
+
+        int answer = -1;
+
+        while(low <= high)
+        {
+            int mid = low + (high - low) / 2;
+
+            if(isPossible(nums, m, mid))
+            {
+                answer = mid;
+                high = mid - 1;
+            }
+            else
+            {
+                low = mid + 1;
+            }
+        }
+
+        return answer;
+    }
+};
