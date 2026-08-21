@@ -366,3 +366,68 @@ public:
         return answer;
     }
 };
+
+//21-08-26
+
+class Solution {
+public:
+
+    bool canPaint(vector<int>& C, int A, long long maxLength) {
+        int painters = 1;
+        long long currentLength = 0;
+
+        for (int board : C) {
+
+            // Current painter cannot take this board
+            if (currentLength + board > maxLength) {
+                painters++;
+                currentLength = board;
+
+                // Need more painters than available
+                if (painters > A)
+                    return false;
+            }
+            else {
+                currentLength += board;
+            }
+        }
+
+        return true;
+    }
+
+    int paint(int A, int B, vector<int>& C) {
+
+        const int MOD = 10000003;
+
+        long long left = 0;
+        long long right = 0;
+
+        // Minimum possible maximum workload
+        // = largest board
+        for (int board : C) {
+            left = max(left, (long long)board);
+            right += board;
+        }
+
+        // Binary search
+        while (left < right) {
+
+            long long mid = left + (right - left) / 2;
+
+            if (canPaint(C, A, mid)) {
+                // mid is possible
+                // Try a smaller workload
+                right = mid;
+            }
+            else {
+                // mid is impossible
+                // Need a larger workload
+                left = mid + 1;
+            }
+        }
+
+        // left = minimum maximum board length
+        // Multiply by B to get time
+        return (left % MOD) * B % MOD;
+    }
+};
