@@ -431,3 +431,59 @@ public:
         return (left % MOD) * B % MOD;
     }
 };
+
+//22-08-26
+class Solution {
+public:
+
+    // Returns true if we can make every gap <= dist
+    // using at most k new stations.
+    bool canPlace(vector<int>& arr, int k, double dist) {
+
+        int required = 0;
+
+        for (int i = 1; i < arr.size(); i++) {
+
+            double gap = arr[i] - arr[i - 1];
+
+            // Number of stations required inside this gap
+            required += (int)ceil(gap / dist) - 1;
+
+            // We already need too many stations
+            if (required > k)
+                return false;
+        }
+
+        return true;
+    }
+
+    double minMaxDist(vector<int>& arr, int k) {
+
+        double low = 0.0;
+        double high = 0.0;
+
+        // Find the largest existing gap
+        for (int i = 1; i < arr.size(); i++) {
+            high = max(high, (double)(arr[i] - arr[i - 1]));
+        }
+
+        // Binary search with precision
+        while (high - low > 1e-6) {
+
+            double mid = low + (high - low) / 2.0;
+
+            if (canPlace(arr, k, mid)) {
+                // mid is possible
+                // Try smaller distance
+                high = mid;
+            }
+            else {
+                // mid is impossible
+                // Need larger distance
+                low = mid;
+            }
+        }
+
+        return high;
+    }
+};
