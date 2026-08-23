@@ -541,3 +541,56 @@ public:
         return -1;
     }
 };
+
+
+class Solution {
+public:
+
+    int firstOne(vector<int>& row) {
+
+        int low = 0;
+        int high = row.size() - 1;
+
+        while (low <= high) {
+
+            int mid = low + (high - low) / 2;
+
+            if (row[mid] == 1) {
+                // We found a 1.
+                // But maybe there is another 1 before it.
+                high = mid - 1;
+            }
+            else {
+                // row[mid] == 0
+                // So first 1 must be on the right.
+                low = mid + 1;
+            }
+        }
+
+        return low;
+    }
+
+
+    int rowWithMax1s(vector<vector<int>>& mat) {
+
+        int n = mat.size();
+        int m = mat[0].size();
+
+        int maxOnes = 0;
+        int answer = -1;
+
+        for (int i = 0; i < n; i++) {
+
+            int first = firstOne(mat[i]);
+
+            int ones = m - first;
+
+            if (ones > maxOnes) {
+                maxOnes = ones;
+                answer = i;
+            }
+        }
+
+        return answer;
+    }
+};
