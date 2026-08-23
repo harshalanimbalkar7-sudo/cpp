@@ -487,3 +487,57 @@ public:
         return high;
     }
 };
+
+//23-08-26
+
+class Solution {
+public:
+    int kthElement(vector<int>& a, vector<int>& b, int k) {
+
+        // Always binary search on the smaller array
+        if (a.size() > b.size()) {
+            swap(a, b);
+        }
+
+        int m = a.size();
+        int n = b.size();
+
+        // i = number of elements taken from a
+        // j = number of elements taken from b
+
+        int low = max(0, k - n);
+        int high = min(k, m);
+
+        while (low <= high) {
+
+            int i = low + (high - low) / 2;
+
+            int j = k - i;
+
+            // Boundary values of a
+            int l1 = (i == 0) ? INT_MIN : a[i - 1];
+            int r1 = (i == m) ? INT_MAX : a[i];
+
+            // Boundary values of b
+            int l2 = (j == 0) ? INT_MIN : b[j - 1];
+            int r2 = (j == n) ? INT_MAX : b[j];
+
+            // Correct partition
+            if (l1 <= r2 && l2 <= r1) {
+                return max(l1, l2);
+            }
+
+            // Took too many elements from a
+            if (l1 > r2) {
+                high = i - 1;
+            }
+
+            // Took too few elements from a
+            else {
+                low = i + 1;
+            }
+        }
+
+        return -1;
+    }
+};
