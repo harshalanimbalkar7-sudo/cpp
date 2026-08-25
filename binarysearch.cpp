@@ -594,3 +594,50 @@ public:
         return answer;
     }
 };
+
+//25-08-26
+class Solution {
+public:
+
+    int countLessEqual(vector<int>& row, int x) {
+
+        return upper_bound(row.begin(), row.end(), x) - row.begin();
+    }
+
+    int median(vector<vector<int>>& matrix) {
+
+        int m = matrix.size();
+        int n = matrix[0].size();
+
+        int low = INT_MAX;
+        int high = INT_MIN;
+
+        // Find minimum and maximum possible values
+        for (int i = 0; i < m; i++) {
+            low = min(low, matrix[i][0]);
+            high = max(high, matrix[i][n - 1]);
+        }
+
+        int required = (m * n) / 2 + 1;
+
+        while (low < high) {
+
+            int mid = low + (high - low) / 2;
+
+            int count = 0;
+
+            for (int i = 0; i < m; i++) {
+                count += countLessEqual(matrix[i], mid);
+            }
+
+            if (count < required) {
+                low = mid + 1;
+            }
+            else {
+                high = mid;
+            }
+        }
+
+        return low;
+    }
+};
