@@ -197,3 +197,333 @@ string removeOuterParentheses(string s) {
 
     return ans;
 }
+
+//05-09-26
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string minWindow(string s, string t) {
+
+    if (t.length() > s.length())
+        return "";
+
+    int freq[256] = {0};
+
+    for (char c : t)
+        freq[c]++;
+
+    int left = 0;
+    int count = t.length();
+
+    int start = 0;
+    int minLen = INT_MAX;
+
+    for (int right = 0; right < s.length(); right++) {
+
+        if (freq[s[right]] > 0)
+            count--;
+
+        freq[s[right]]--;
+
+        while (count == 0) {
+
+            if (right - left + 1 < minLen) {
+                minLen = right - left + 1;
+                start = left;
+            }
+
+            freq[s[left]]++;
+
+            if (freq[s[left]] > 0)
+                count++;
+
+            left++;
+        }
+    }
+
+    if (minLen == INT_MAX)
+        return "";
+
+    return s.substr(start, minLen);
+}
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> findAnagrams(string s, string p) {
+
+    vector<int> ans;
+
+    if (p.length() > s.length())
+        return ans;
+
+    int need[26] = {0};
+    int window[26] = {0};
+
+    for (char c : p)
+        need[c - 'a']++;
+
+    int k = p.length();
+
+    for (int i = 0; i < s.length(); i++) {
+
+        window[s[i] - 'a']++;
+
+        if (i >= k)
+            window[s[i - k] - 'a']--;
+
+        if (i >= k - 1) {
+
+            bool same = true;
+
+            for (int j = 0; j < 26; j++) {
+                if (need[j] != window[j]) {
+                    same = false;
+                    break;
+                }
+            }
+
+            if (same)
+                ans.push_back(i - k + 1);
+        }
+    }
+
+    return ans;
+}
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int lengthOfLongestSubstring(string s) {
+
+    int freq[256] = {0};
+
+    int left = 0;
+    int ans = 0;
+
+    for (int right = 0; right < s.length(); right++) {
+
+        freq[s[right]]++;
+
+        while (freq[s[right]] > 1) {
+            freq[s[left]]--;
+            left++;
+        }
+
+        ans = max(ans, right - left + 1);
+    }
+
+    return ans;
+}
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string reverseWords(string s) {
+
+    stringstream ss(s);
+
+    vector<string> words;
+    string word;
+
+    while (ss >> word)
+        words.push_back(word);
+
+    reverse(words.begin(), words.end());
+
+    string ans;
+
+    for (int i = 0; i < words.size(); i++) {
+
+        if (i > 0)
+            ans += " ";
+
+        ans += words[i];
+    }
+
+    return ans;
+}
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string removeOuterParentheses(string s) {
+
+    string ans;
+    int depth = 0;
+
+    for (char c : s) {
+
+        if (c == '(') {
+            if (depth > 0)
+                ans += c;
+
+            depth++;
+        }
+        else {
+            depth--;
+
+            if (depth > 0)
+                ans += c;
+        }
+    }
+
+    return ans;
+}
+
+//06-09-26
+#include <bits/stdc++.h>
+using namespace std;
+
+int characterReplacement(string s, int k) {
+    int freq[26] = {0};
+
+    int left = 0;
+    int maxFreq = 0;
+    int ans = 0;
+
+    for (int right = 0; right < s.size(); right++) {
+
+        freq[s[right] - 'A']++;
+        maxFreq = max(maxFreq, freq[s[right] - 'A']);
+
+        // characters that need replacement
+        int changes = (right - left + 1) - maxFreq;
+
+        while (changes > k) {
+            freq[s[left] - 'A']--;
+            left++;
+
+            changes = (right - left + 1) - maxFreq;
+        }
+
+        ans = max(ans, right - left + 1);
+    }
+
+    return ans;
+}
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int compress(vector<char>& chars) {
+
+    int write = 0;
+    int i = 0;
+
+    while (i < chars.size()) {
+
+        char current = chars[i];
+        int count = 0;
+
+        while (i < chars.size() && chars[i] == current) {
+            i++;
+            count++;
+        }
+
+        chars[write++] = current;
+
+        if (count > 1) {
+
+            string num = to_string(count);
+
+            for (char c : num)
+                chars[write++] = c;
+        }
+    }
+
+    return write;
+}
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string frequencySort(string s) {
+
+    unordered_map<char, int> freq;
+
+    for (char c : s)
+        freq[c]++;
+
+    vector<pair<char, int>> v(freq.begin(), freq.end());
+
+    sort(v.begin(), v.end(),
+         [](auto &a, auto &b) {
+             return a.second > b.second;
+         });
+
+    string ans;
+
+    for (auto &p : v) {
+        ans.append(p.second, p.first);
+    }
+
+    return ans;
+}
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int romanToInt(string s) {
+
+    unordered_map<char, int> value = {
+        {'I', 1},
+        {'V', 5},
+        {'X', 10},
+        {'L', 50},
+        {'C', 100},
+        {'D', 500},
+        {'M', 1000}
+    };
+
+    int ans = 0;
+
+    for (int i = 0; i < s.size(); i++) {
+
+        if (i + 1 < s.size() &&
+            value[s[i]] < value[s[i + 1]]) {
+
+            ans -= value[s[i]];
+        }
+        else {
+            ans += value[s[i]];
+        }
+    }
+
+    return ans;
+}
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string intToRoman(int num) {
+
+    vector<pair<int, string>> values = {
+        {1000, "M"},
+        {900, "CM"},
+        {500, "D"},
+        {400, "CD"},
+        {100, "C"},
+        {90, "XC"},
+        {50, "L"},
+        {40, "XL"},
+        {10, "X"},
+        {9, "IX"},
+        {5, "V"},
+        {4, "IV"},
+        {1, "I"}
+    };
+
+    string ans;
+
+    for (auto &p : values) {
+
+        while (num >= p.first) {
+            ans += p.second;
+            num -= p.first;
+        }
+    }
+
+    return ans;
+}
