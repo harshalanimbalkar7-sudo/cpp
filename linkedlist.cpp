@@ -28,3 +28,23 @@ public:
         return count;
     }
 };
+
+class Solution {
+public:
+    bool searchKey(ListNode* head, int key) {
+        
+        while (head != NULL) {
+            
+            // If current node contains the key
+            if (head->val == key) {
+                return true;
+            }
+            
+            // Move to next node
+            head = head->next;
+        }
+        
+        // Key was not found
+        return false;
+    }
+};
