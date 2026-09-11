@@ -71,3 +71,24 @@ public:
         return head;
     }
 };
+
+
+class Solution {
+public:
+    Node* deleteHead(Node* head) {
+        // If list is empty
+        if (head == NULL) {
+            return NULL;
+        }
+
+        // Move head to the next node
+        head = head->next;
+
+        // If list is not empty, remove backward connection
+        if (head != NULL) {
+            head->prev = NULL;
+        }
+
+        return head;
+    }
+};
