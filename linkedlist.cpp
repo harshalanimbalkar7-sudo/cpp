@@ -48,3 +48,26 @@ public:
         return false;
     }
 };
+
+//11-09-2026
+```cpp
+class Solution {
+public:
+    Node* insertBeforeHead(Node* head, int X) {
+        // Create new node
+        Node* newNode = new Node(X);
+
+        // New node points forward to current head
+        newNode->next = head;
+
+        // If list is not empty, old head points back to new node
+        if (head != NULL) {
+            head->prev = newNode;
+        }
+
+        // New node becomes the new head
+        head = newNode;
+
+        return head;
+    }
+};
