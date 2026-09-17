@@ -196,3 +196,54 @@ public:
         return zeroDummy.next;
     }
 };
+
+class Solution {
+public:
+
+    Node* reverseList(Node* head) {
+        Node* prev = NULL;
+        Node* curr = head;
+
+        while (curr != NULL) {
+            Node* nextNode = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+
+        return prev;
+    }
+
+    Node* addOne(Node* head) {
+
+        // Step 1: Reverse the list
+        head = reverseList(head);
+
+        Node* curr = head;
+        int carry = 1;
+
+        // Step 2: Add 1
+        while (curr != NULL && carry) {
+
+            int sum = curr->data + carry;
+
+            curr->data = sum % 10;
+            carry = sum / 10;
+
+            if (curr->next == NULL)
+                break;
+
+            curr = curr->next;
+        }
+
+        // If carry is still left, create a new node
+        if (carry) {
+            curr->next = new Node(carry);
+        }
+
+        // Step 3: Reverse back
+        head = reverseList(head);
+
+        return head;
+    }
+};
