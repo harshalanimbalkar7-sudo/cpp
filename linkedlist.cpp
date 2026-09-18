@@ -288,3 +288,41 @@ public:
         return dummy.next;
     }
 };
+
+class Solution {
+public:
+    ListNode* deleteAllOccurrences(ListNode* head, int target) {
+        
+        ListNode* current = head;
+
+        while (current != NULL) {
+            
+            if (current->val == target) {
+                
+                ListNode* nextNode = current->next;
+
+                // If current node is the head
+                if (current == head) {
+                    head = current->next;
+                }
+
+                // Connect previous node to next node
+                if (current->prev != NULL) {
+                    current->prev->next = current->next;
+                }
+
+                // Connect next node to previous node
+                if (current->next != NULL) {
+                    current->next->prev = current->prev;
+                }
+
+                current = nextNode;
+            }
+            else {
+                current = current->next;
+            }
+        }
+
+        return head;
+    }
+};
