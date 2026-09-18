@@ -247,3 +247,44 @@ public:
         return head;
     }
 };
+
+//18-09-26
+class Solution {
+public:
+    Node* addTwoNumbers(Node* linkedList1, Node* linkedList2) {
+
+        Node dummy(0);
+        Node* tail = &dummy;
+
+        Node* curr1 = linkedList1;
+        Node* curr2 = linkedList2;
+
+        int carry = 0;
+
+        while (curr1 != NULL || curr2 != NULL || carry != 0) {
+
+            int sum = carry;
+
+            // Add digit from first list
+            if (curr1 != NULL) {
+                sum += curr1->data;
+                curr1 = curr1->next;
+            }
+
+            // Add digit from second list
+            if (curr2 != NULL) {
+                sum += curr2->data;
+                curr2 = curr2->next;
+            }
+
+            // Store current digit
+            tail->next = new Node(sum % 10);
+            tail = tail->next;
+
+            // Calculate carry
+            carry = sum / 10;
+        }
+
+        return dummy.next;
+    }
+};
