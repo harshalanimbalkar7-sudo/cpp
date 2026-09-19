@@ -365,3 +365,33 @@ public:
         return ans;
     }
 };
+
+class Solution {
+public:
+    ListNode* removeDuplicates(ListNode* head) {
+        
+        if (head == NULL)
+            return NULL;
+
+        ListNode* current = head;
+
+        while (current != NULL && current->next != NULL) {
+            
+            if (current->val == current->next->val) {
+                
+                ListNode* duplicate = current->next;
+
+                current->next = duplicate->next;
+
+                if (duplicate->next != NULL) {
+                    duplicate->next->prev = current;
+                }
+            }
+            else {
+                current = current->next;
+            }
+        }
+
+        return head;
+    }
+};
