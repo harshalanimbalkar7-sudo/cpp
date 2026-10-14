@@ -4,3 +4,11 @@ public:
         return (n & (1 << i)) != 0;
     }
 };
+
+
+class Solution {
+public:
+    bool isOdd(int n) {
+        return n % 2 != 0; 
+    }
+};
