@@ -414,3 +414,27 @@ public:
         return ans;
     }
 };
+
+
+class Solution {
+    public:
+        ListNode* deleteTail(ListNode* &head) {
+            if (head == nullptr || head->next == nullptr) {
+            delete head;
+            return nullptr;
+        }
+
+        ListNode* temp = head;
+
+        // Move to the second-last node
+        while (temp->next->next != nullptr) {
+            temp = temp->next;
+        }
+
+        // Delete the last node
+        delete temp->next;
+        temp->next = nullptr;
+
+        return head;
+        }
+};
