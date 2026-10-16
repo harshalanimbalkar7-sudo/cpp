@@ -21,3 +21,12 @@ public:
         return n | (n + 1);
     }
 };
+
+class Solution {
+public:
+    void swapNumbers(int &a, int &b) {
+        a = a + b;
+        b = a - b;
+        a = a - b;
+    }
+};
