@@ -463,3 +463,40 @@ public:
         return head;
     }
 };
+
+class Solution {
+public:
+    ListNode* insertAtKthPosition(ListNode* head, int X, int K) {
+        // Invalid position
+        if (K <= 0) {
+            return head;
+        }
+
+        ListNode* newNode = new ListNode(X);
+
+        // Insert at the first position
+        if (K == 1) {
+            newNode->next = head;
+            return newNode;
+        }
+
+        ListNode* temp = head;
+
+        // Move to the (K-1)th node
+        for (int i = 1; i < K - 1 && temp != nullptr; i++) {
+            temp = temp->next;
+        }
+
+        // Position is beyond the list length
+        if (temp == nullptr) {
+            delete newNode;
+            return head;
+        }
+
+        // Insert the new node
+        newNode->next = temp->next;
+        temp->next = newNode;
+
+        return head;
+    }
+};
