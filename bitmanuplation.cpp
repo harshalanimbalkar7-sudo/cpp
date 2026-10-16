@@ -12,3 +12,12 @@ public:
         return n % 2 != 0; 
     }
 };
+
+
+//15-10-26
+class Solution {
+public:
+    int setRightmostUnsetBit(int n) {
+        return n | (n + 1);
+    }
+};
