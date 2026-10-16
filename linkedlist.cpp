@@ -438,3 +438,28 @@ class Solution {
         return head;
         }
 };
+
+
+class Solution {
+public:
+    ListNode* insertAtTail(ListNode* head, int X) {
+        ListNode* newNode = new ListNode(X);
+
+        // If the list is empty
+        if (head == nullptr) {
+            return newNode;
+        }
+
+        ListNode* temp = head;
+
+        // Traverse to the last node
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+
+        // Attach the new node at the end
+        temp->next = newNode;
+
+        return head;
+    }
+};
