@@ -235,3 +235,28 @@ public:
         return mergeSort(nums, 0, nums.size() - 1);
     }
 };
+
+
+17/10/26
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int largestElement(vector<int>& arr) {
+    int largest = arr[0];
+
+    for (int i = 1; i < arr.size(); i++) {
+        if (arr[i] > largest) {
+            largest = arr[i];
+        }
+    }
+
+    return largest;
+}
+
+int main() {
+    vector<int> arr = {3, 2, 8, 5, 1};
+
+    cout << largestElement(arr);
+    return 0;
+}
