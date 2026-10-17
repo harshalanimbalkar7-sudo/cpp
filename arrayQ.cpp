@@ -260,3 +260,32 @@ int main() {
     cout << largestElement(arr);
     return 0;
 }
+
+#include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+
+int secondLargest(vector<int>& arr) {
+    int largest = INT_MIN;
+    int second = INT_MIN;
+
+    for (int x : arr) {
+        if (x > largest) {
+            second = largest;
+            largest = x;
+        }
+        else if (x < largest && x > second) {
+            second = x;
+        }
+    }
+
+    return second == INT_MIN ? -1 : second;
+}
+
+int main() {
+    vector<int> arr = {12, 35, 1, 10, 34, 1};
+
+    cout << secondLargest(arr);
+    return 0;
+}
