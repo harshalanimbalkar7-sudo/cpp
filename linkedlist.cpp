@@ -500,3 +500,49 @@ public:
         return head;
     }
 };
+
+class Solution {
+public:
+    Node* deleteNode(Node* head, int k) {
+        if (head == nullptr || k <= 0) {
+            return head;
+        }
+
+        Node* temp = head;
+
+        // Move to the kth node (1-based indexing)
+        for (int i = 1; i < k && temp != nullptr; i++) {
+            temp = temp->next;
+        }
+
+        // If k is greater than the list length
+        if (temp == nullptr) {
+            return head;
+        }
+
+        // If the node to delete is the head
+        if (temp == head) {
+            head = head->next;
+
+            if (head != nullptr) {
+                head->prev = nullptr;
+            }
+
+            delete temp;
+            return head;
+        }
+
+        // Connect the previous node to the next node
+        if (temp->prev != nullptr) {
+            temp->prev->next = temp->next;
+        }
+
+        // Connect the next node to the previous node
+        if (temp->next != nullptr) {
+            temp->next->prev = temp->prev;
+        }
+
+        delete temp;
+        return head;
+    }
+};
