@@ -546,3 +546,40 @@ public:
         return head;
     }
 };
+
+
+class Solution {
+public:
+    Node* insertBeforeTail(Node* head, int X) {
+        Node* newNode = new Node(X);
+
+        // Empty list
+        if (head == nullptr) {
+            return newNode;
+        }
+
+        // Only one node
+        if (head->next == nullptr) {
+            newNode->next = head;
+            head->prev = newNode;
+            return newNode;
+        }
+
+        // Find the tail
+        Node* tail = head;
+        while (tail->next != nullptr) {
+            tail = tail->next;
+        }
+
+        // Insert newNode before tail
+        Node* before = tail->prev;
+
+        before->next = newNode;
+        newNode->prev = before;
+
+        newNode->next = tail;
+        tail->prev = newNode;
+
+        return head;
+    }
+};
