@@ -625,3 +625,19 @@ public:
         return head;
     }
 };
+
+
+class Solution {
+public:
+    void insertBefore(Node* node, int X) {
+        Node* newNode = new Node(X);
+
+        Node* before = node->prev;
+
+        newNode->prev = before;
+        newNode->next = node;
+
+        before->next = newNode;
+        node->prev = newNode;
+    }
+};
