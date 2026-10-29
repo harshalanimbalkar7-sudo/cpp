@@ -583,3 +583,45 @@ public:
         return head;
     }
 };
+
+class Solution {
+public:
+    Node* insertBeforeKthPosition(Node* head, int X, int K) {
+        Node* newNode = new Node(X);
+
+        // Insert before the first node
+        if (K == 1) {
+            newNode->next = head;
+
+            if (head != nullptr) {
+                head->prev = newNode;
+            }
+
+            return newNode;
+        }
+
+        Node* temp = head;
+
+        // Move to the Kth node
+        for (int i = 1; i < K && temp != nullptr; i++) {
+            temp = temp->next;
+        }
+
+        // K is beyond the list length
+        if (temp == nullptr) {
+            delete newNode;
+            return head;
+        }
+
+        // Insert newNode before temp
+        Node* before = temp->prev;
+
+        before->next = newNode;
+        newNode->prev = before;
+
+        newNode->next = temp;
+        temp->prev = newNode;
+
+        return head;
+    }
+};
