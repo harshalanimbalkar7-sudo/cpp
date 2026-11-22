@@ -36,3 +36,54 @@ public:
         return topIndex == -1;
     }
 };
+
+class ArrayQueue {
+private:
+    int arr[10000];
+    int front;
+    int rear;
+    int size;
+    int capacity;
+
+public:
+    ArrayQueue() {
+        front = 0;
+        rear = -1;
+        size = 0;
+        capacity = 10000;
+    }
+
+    void push(int x) {
+        if (size == capacity) {
+            return;
+        }
+
+        rear = (rear + 1) % capacity;
+        arr[rear] = x;
+        size++;
+    }
+
+    int pop() {
+        if (isEmpty()) {
+            return -1;
+        }
+
+        int x = arr[front];
+        front = (front + 1) % capacity;
+        size--;
+
+        return x;
+    }
+
+    int peek() {
+        if (isEmpty()) {
+            return -1;
+        }
+
+        return arr[front];
+    }
+
+    bool isEmpty() {
+        return size == 0;
+    }
+};
