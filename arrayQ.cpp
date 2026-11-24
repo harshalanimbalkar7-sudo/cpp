@@ -414,3 +414,34 @@ int main() {
     cout << (isSorted(arr) ? "true" : "false");
     return 0;
 }
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int majorityElement(vector<int>& arr) {
+    int candidate = 0;
+    int count = 0;
+
+    for (int x : arr) {
+        if (count == 0) {
+            candidate = x;
+        }
+
+        if (x == candidate) {
+            count++;
+        } else {
+            count--;
+        }
+    }
+
+    return candidate;
+}
+
+int main() {
+    vector<int> arr = {2, 2, 1, 1, 1, 2, 2};
+
+    cout << majorityElement(arr);
+    return 0;
+}
