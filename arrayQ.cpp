@@ -619,3 +619,26 @@ int main() {
 
     return 0;
 }
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int missingNumber(vector<int>& nums) {
+    int n = nums.size();
+    int x = n;
+
+    for (int i = 0; i < n; i++) {
+        x ^= i ^ nums[i];
+    }
+
+    return x;
+}
+
+int main() {
+    vector<int> nums = {3, 0, 1};
+
+    cout << missingNumber(nums);
+    return 0;
+}
